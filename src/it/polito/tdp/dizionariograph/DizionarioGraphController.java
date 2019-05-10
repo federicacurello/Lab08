@@ -7,13 +7,21 @@
 
 	import java.net.URL;
 	import java.util.ResourceBundle;
-	import javafx.event.ActionEvent;
+
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleGraph;
+
+import it.polito.tdp.dizionariograph.model.Model;
+import javafx.event.ActionEvent;
 	import javafx.fxml.FXML;
 	import javafx.scene.control.Button;
 	import javafx.scene.control.TextArea;
 	import javafx.scene.control.TextField;
 
 	public class DizionarioGraphController {
+		Model model;
+		Graph grafo= new SimpleGraph<>(DefaultEdge.class) ;
 
 	    @FXML // ResourceBundle that was given to the FXMLLoader
 	    private ResourceBundle resources;
@@ -44,25 +52,34 @@
 
 	    @FXML
 	    void doGeneraGrafo(ActionEvent event) {
-
-	    }
+	    	txtResult.clear();
+	    	if(!txtLettere.equals("") && txtLettere!=null) {
+	    	int l=Integer.parseInt(txtLettere.getText());
+	    	model.createGraph(l);
+	    	grafo= model.getGrafo();
+	    	//txtResult.appendText(model.getGrafo().toString());
+	    }}
 
 	    @FXML
 	    void doReset(ActionEvent event) {
 	    	txtParola.clear();
 	    	txtLettere.clear();
 	    	txtResult.clear();
+	    	grafo= new SimpleGraph<>(DefaultEdge.class) ;
 
 	    }
 
 	    @FXML
 	    void doTrovaGrado(ActionEvent event) {
+	    	txtResult.clear();
+	    	txtResult.appendText(""+model.findMaxDegree());
 
 	    }
 
 	    @FXML
 	    void doTrovaVicini(ActionEvent event) {
-
+	    	txtResult.clear();
+	    	txtResult.appendText(model.displayNeighbours(txtParola.getText()).toString());
 	    }
 
 	    @FXML // This method is called by the FXMLLoader when initialization is complete
