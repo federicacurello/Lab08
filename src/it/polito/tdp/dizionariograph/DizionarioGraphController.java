@@ -57,7 +57,7 @@ import javafx.event.ActionEvent;
 	    	int l=Integer.parseInt(txtLettere.getText());
 	    	model.createGraph(l);
 	    	grafo= model.getGrafo();
-	    	//txtResult.appendText(model.getGrafo().toString());
+	    	txtResult.appendText("Vertici:"+ model.getGrafo().vertexSet().size()+" archi:"+model.getGrafo().edgeSet().size());
 	    }}
 
 	    @FXML
@@ -93,5 +93,10 @@ import javafx.event.ActionEvent;
 	        assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'DizionarioGraph.fxml'.";
 
 	    }
+
+		public void setModel(Model model2) {
+			model=model2;
+			
+		}
 	}
 
